@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Vk Compose</string>
+    <string name="vk_post_text">Настроение на первый рабочий день в 2026: Серж Танкян на работе в офисе – за несколько лет до основания легендарной группы System of a Down</string>
+    <string name="nav_item_main">Главная</string>
+    <string name="nav_item_favourite">Избранное</string>
+    <string name="nav_item_profile">Профиль</string>
+</resources>
