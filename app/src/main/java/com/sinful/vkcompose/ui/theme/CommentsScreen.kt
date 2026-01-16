@@ -55,7 +55,7 @@ fun CommentsScreen(
                 TopAppBar(
                     title = {
                         Text(
-                            "Comments for FeedPost Id: ${currentState.feedPost.id}",
+                            "Comments for FeedPost Id: ${currentState.feedPost.contentText}",
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )

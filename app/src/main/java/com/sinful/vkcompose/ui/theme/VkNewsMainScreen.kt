@@ -35,10 +35,6 @@ fun MainScreen() {
 
     val navigationState = rememberNavigationState()
 
-    val commentsToPost: MutableState<FeedPost?> = remember {
-        mutableStateOf(null)
-    }
-
     val navBackStackEntry by navigationState.navHostController.currentBackStackEntryAsState()
 
     Scaffold(
@@ -86,23 +82,20 @@ fun MainScreen() {
         AppNavGraph(
             navHostController = navigationState.navHostController,
             newsFeedScreenContent = {
-                if (commentsToPost.value == null) {
-                    HomeScreen(
-                        paddingValues = paddingValues,
-                        onCommentClickListener = {
-                            commentsToPost.value = it
-                            navigationState.navigateToComments()
-                        }
-                    )
-                }
+                HomeScreen(
+                    paddingValues = paddingValues,
+                    onCommentClickListener = {
+                        navigationState.navigateToComments(it)
+                    }
+                )
             },
-            commentsScreenContent = {
+            commentsScreenContent = {feedPost ->
                 CommentsScreen(
                     paddingValues = paddingValues,
                     onBackPressed = {
                         navigationState.navHostController.popBackStack()
                     },
-                    feedPost = commentsToPost.value!!
+                    feedPost = feedPost
                 )
 
             },
