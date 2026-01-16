@@ -21,11 +21,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.sinful.vkcompose.NewsFeedViewModel
-import com.sinful.vkcompose.NavigationItem
+import com.sinful.vkcompose.navigation.NavigationItem
 import com.sinful.vkcompose.domain.FeedPost
 import com.sinful.vkcompose.navigation.AppNavGraph
+import com.sinful.vkcompose.navigation.Screen
 import com.sinful.vkcompose.navigation.rememberNavigationState
 
 @Composable
@@ -38,18 +40,15 @@ fun MainScreen() {
     }
 
     val navBackStackEntry by navigationState.navHostController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route
 
     Scaffold(
-        topBar = {
-
-        },
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background),
-        bottomBar = {
 
+        bottomBar = {
             NavigationBar {
+
                 val items = listOf(
                     NavigationItem.Home,
                     NavigationItem.Favourite,
@@ -57,9 +56,18 @@ fun MainScreen() {
                 )
 
                 items.forEach { item ->
+
+                    val selected = navBackStackEntry?.destination?.hierarchy?.any {
+                        it.route == item.screen.route
+                    } ?: false
+
                     NavigationBarItem(
-                        selected = currentRoute == item.screen.route,
-                        onClick = { navigationState.navigateTo(item.screen.route) },
+                        selected = selected,
+                        onClick = {
+                            if (!selected) {
+                                navigationState.navigateTo(item.screen.route)
+                            }
+                        },
                         icon = { Icon(item.icon, contentDescription = null) },
                         label = { Text(text = stringResource(id = item.titleResId)) },
                         colors = NavigationBarItemDefaults.colors(
@@ -77,20 +85,26 @@ fun MainScreen() {
     ) { paddingValues ->
         AppNavGraph(
             navHostController = navigationState.navHostController,
-            homeScreenContent = {
+            newsFeedScreenContent = {
                 if (commentsToPost.value == null) {
-                    HomeScreen(paddingValues, onCommentClickListener = {
-                        commentsToPost.value = it
-                    })
-                } else {
-                    CommentsScreen(
+                    HomeScreen(
                         paddingValues = paddingValues,
-                        onBackPressed = {
-                            commentsToPost.value = null
-                        },
-                        feedPost = commentsToPost.value!!
+                        onCommentClickListener = {
+                            commentsToPost.value = it
+                            navigationState.navigateToComments()
+                        }
                     )
                 }
+            },
+            commentsScreenContent = {
+                CommentsScreen(
+                    paddingValues = paddingValues,
+                    onBackPressed = {
+                        navigationState.navHostController.popBackStack()
+                    },
+                    feedPost = commentsToPost.value!!
+                )
+
             },
             favouriteScreenContent = { TextCounter("Favourite", paddingValues) },
             profileScreenContent = { TextCounter("Profile", paddingValues) }
