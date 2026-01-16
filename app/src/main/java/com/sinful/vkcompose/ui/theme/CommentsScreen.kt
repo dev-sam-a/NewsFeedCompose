@@ -56,7 +56,6 @@ fun CommentsScreen(
                     title = {
                         Text(
                             "Comments for FeedPost Id: ${currentState.feedPost.contentText}",
-                            maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
                     },

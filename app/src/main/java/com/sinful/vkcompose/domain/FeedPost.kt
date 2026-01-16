@@ -1,7 +1,13 @@
 package com.sinful.vkcompose.domain
 
+import android.os.Parcelable
+import androidx.navigation.NavType
+import androidx.savedstate.SavedState
+import com.google.gson.Gson
 import com.sinful.vkcompose.R
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class FeedPost(
     val id: Int = 0,
     val communityNane: String = "/android/dev/hell",
@@ -15,4 +21,23 @@ data class FeedPost(
         StatisticItem(type = StatisticType.COMMENTS, 15),
         StatisticItem(type = StatisticType.LIKES, 26),
     )
-)
+) : Parcelable {
+
+    companion object {
+
+        val NavigationType: NavType<FeedPost> = object : NavType<FeedPost>(false) {
+            override fun put(bundle: SavedState, key: String, value: FeedPost) {
+                bundle.putParcelable(key, value)
+            }
+
+            override fun get(bundle: SavedState, key: String): FeedPost? {
+                return bundle.getParcelable(key)
+            }
+
+            override fun parseValue(value: String): FeedPost {
+                return Gson().fromJson(value, FeedPost::class.java)
+            }
+
+        }
+    }
+}
