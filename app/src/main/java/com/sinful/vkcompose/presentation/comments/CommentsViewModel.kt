@@ -1,11 +1,10 @@
-package com.sinful.vkcompose
+package com.sinful.vkcompose.presentation.comments
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sinful.vkcompose.domain.FeedPost
 import com.sinful.vkcompose.domain.PostComment
-import com.sinful.vkcompose.ui.theme.CommentsScreenState
 
 class CommentsViewModel(feedPost: FeedPost) : ViewModel() {
 

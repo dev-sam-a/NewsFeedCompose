@@ -1,4 +1,4 @@
-package com.sinful.vkcompose.ui.theme
+package com.sinful.vkcompose.presentation.comments
 
 import com.sinful.vkcompose.domain.FeedPost
 import com.sinful.vkcompose.domain.PostComment

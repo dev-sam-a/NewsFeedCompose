@@ -1,4 +1,4 @@
-package com.sinful.vkcompose.ui.theme
+package com.sinful.vkcompose.presentation.news
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.MoreVert
@@ -25,6 +26,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.sinful.vkcompose.R
 import com.sinful.vkcompose.domain.FeedPost
 import com.sinful.vkcompose.domain.StatisticItem
@@ -49,11 +51,11 @@ fun PostCard(
             Spacer(modifier = Modifier.height(8.dp))
             Text(text = feedPost.contentText)
             Spacer(modifier = Modifier.height(8.dp))
-            Image(
+            AsyncImage(
+                model = feedPost.contentImageUrl,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(200.dp),
-                painter = painterResource(feedPost.contentImageResId),
+                    .wrapContentHeight(),
                 contentDescription = null,
                 contentScale = ContentScale.FillWidth
             )
@@ -160,20 +162,20 @@ private fun PostHeader(
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Image(
+        AsyncImage(
+            model = feedPost.communityImageUrl,
             modifier = Modifier
                 .size(50.dp)
                 .clip(CircleShape),
-            painter = painterResource(feedPost.avatarResId),
             contentDescription = null
         )
         Spacer(modifier = Modifier.width(8.dp))
         Column(
             modifier = Modifier.weight(1f)
         ) {
-            Text(text = feedPost.communityNane, color = MaterialTheme.colorScheme.onBackground)
+            Text(text = feedPost.communityName, color = MaterialTheme.colorScheme.onBackground)
             Spacer(modifier = Modifier.width(4.dp))
-            Text(text = feedPost.publicationData, color = MaterialTheme.colorScheme.onSecondary)
+            Text(text = feedPost.publicationDate, color = MaterialTheme.colorScheme.onSecondary)
         }
         Icon(
             imageVector = Icons.Rounded.MoreVert,

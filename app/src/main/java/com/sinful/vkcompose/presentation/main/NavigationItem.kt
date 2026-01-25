@@ -1,4 +1,4 @@
-package com.sinful.vkcompose.navigation
+package com.sinful.vkcompose.presentation.main
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.FavoriteBorder
@@ -6,6 +6,7 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.sinful.vkcompose.R
+import com.sinful.vkcompose.navigation.Screen
 
 sealed class NavigationItem(
     val screen: Screen,

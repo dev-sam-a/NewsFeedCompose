@@ -1,4 +1,4 @@
-package com.sinful.vkcompose.ui.theme
+package com.sinful.vkcompose.samples
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

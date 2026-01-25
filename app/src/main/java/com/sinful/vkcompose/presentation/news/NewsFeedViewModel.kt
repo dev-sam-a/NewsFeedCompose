@@ -1,24 +1,38 @@
-package com.sinful.vkcompose
+package com.sinful.vkcompose.presentation.news
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.sinful.vkcompose.data.mapper.NewsFeedMapper
+import com.sinful.vkcompose.data.network.ApiFactory
 import com.sinful.vkcompose.domain.FeedPost
 import com.sinful.vkcompose.domain.StatisticItem
-import com.sinful.vkcompose.ui.theme.NewsFeedScreenState
+import kotlinx.coroutines.launch
 
 class NewsFeedViewModel : ViewModel() {
 
-    private val sourceList = mutableListOf<FeedPost>().apply {
-        repeat(10) {
-            add(FeedPost(id = it, contentText = "Content: $it"))
-        }
-    }
 
-    private val initialState = NewsFeedScreenState.Posts(sourceList)
+    private val initialState = NewsFeedScreenState.Initial
 
     private val _screenState = MutableLiveData<NewsFeedScreenState>(initialState)
     val screenState: LiveData<NewsFeedScreenState> = _screenState
+
+    private val mapper = NewsFeedMapper()
+
+    private val newsDataAccessToken = "pub_92832bfacb1243d9b8857e60345a971c"
+
+    init {
+        loadNews()
+    }
+
+    private fun loadNews(){
+        viewModelScope.launch {
+            val response = ApiFactory.apiService.loadNews(newsDataAccessToken, "it technology")
+            val feedPosts = mapper.mapNewsItemsToFeedPosts(response)
+            _screenState.value = NewsFeedScreenState.Posts(feedPosts)
+        }
+    }
 
     fun updateCount(feedPost: FeedPost, item: StatisticItem) {
         val currentState = screenState.value

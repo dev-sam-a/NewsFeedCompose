@@ -1,12 +1,10 @@
-package com.sinful.vkcompose
+package com.sinful.vkcompose.presentation.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import com.sinful.vkcompose.ui.theme.FirstComposeTheme
-import com.sinful.vkcompose.ui.theme.MainScreen
 
 class MainActivity : ComponentActivity() {
 

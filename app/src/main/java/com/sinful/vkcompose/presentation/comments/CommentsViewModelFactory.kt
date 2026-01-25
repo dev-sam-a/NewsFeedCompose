@@ -1,4 +1,4 @@
-package com.sinful.vkcompose
+package com.sinful.vkcompose.presentation.comments
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

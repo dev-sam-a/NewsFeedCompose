@@ -1,4 +1,4 @@
-package com.sinful.vkcompose.ui.theme
+package com.sinful.vkcompose.presentation.news
 
 import com.sinful.vkcompose.domain.FeedPost
 

@@ -1,4 +1,4 @@
-package com.sinful.vkcompose.ui.theme
+package com.sinful.vkcompose.presentation.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -13,22 +13,18 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.sinful.vkcompose.NewsFeedViewModel
-import com.sinful.vkcompose.navigation.NavigationItem
-import com.sinful.vkcompose.domain.FeedPost
 import com.sinful.vkcompose.navigation.AppNavGraph
-import com.sinful.vkcompose.navigation.Screen
 import com.sinful.vkcompose.navigation.rememberNavigationState
+import com.sinful.vkcompose.presentation.comments.CommentsScreen
+import com.sinful.vkcompose.presentation.news.NewsFeedScreen
 
 @Composable
 fun MainScreen() {
@@ -82,7 +78,7 @@ fun MainScreen() {
         AppNavGraph(
             navHostController = navigationState.navHostController,
             newsFeedScreenContent = {
-                HomeScreen(
+                NewsFeedScreen(
                     paddingValues = paddingValues,
                     onCommentClickListener = {
                         navigationState.navigateToComments(it)
