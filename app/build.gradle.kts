@@ -59,7 +59,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.10.0")
     implementation("com.google.code.gson:gson:2.13.2")
     implementation("androidx.compose.material:material-icons-extended")
+
     implementation("com.vk.id:vkid:2.6.0")
+    implementation("com.vk.id:onetap-compose:2.6.0")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
